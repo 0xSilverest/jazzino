@@ -6,10 +6,23 @@ import com.silverest.entities.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
 public class BlackJackService {
     Logger logger = Logger.getLogger(BlackJackService.class.getName());
     List<Table> tables = new ArrayList<>();
+
+    public void commands() {
+        List<String> commands = List.of(
+                "Create Table",
+                "Join Table",
+                "Create Player",
+                "Exit"
+        );
+
+        IntStream commandsStream = IntStream.range(0, commands.size());
+        commandsStream.forEach(i -> System.out.println((i+1) + ": " + commands.get(i)));
+    }
 
     public List<Table> getTables() {
         return tables;

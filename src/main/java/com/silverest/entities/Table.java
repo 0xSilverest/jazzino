@@ -73,4 +73,35 @@ public record Table(List<Player> players, Dealer dealer, List<Card> deck, double
         players.remove(player);
     }
 
+    public void dealCards() {
+        for (Player player : players) {
+            player.addCard(deck.remove(0));
+            player.addCard(deck.remove(0));
+        }
+        dealer.addCard(deck.remove(0));
+        dealer.addCard(deck.remove(0));
+    }
+
+    public void playerChoice(Player player, PlayerChoice pChoice) {
+        switch (pChoice) {
+            case HIT -> player.addCard(deck.remove(0));
+            case STAND -> player.stand();
+            case DOUBLE -> {
+                player.doubleDown().addCard(deck.remove(0)).stand();
+            }
+            case SPLIT -> {
+                player.split();
+            }
+            case SURRENDER -> {
+                player.surrender();
+            }
+        }
+    }
+
+    public void newRound() {
+        for (Player player : players) {
+            player.emptyHand();
+        }
+        dealer.reset();
+    }
 }
